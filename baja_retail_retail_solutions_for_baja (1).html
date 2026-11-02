@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baja Retail | Retail Solutions for Baja</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bajaBlue: '#0056A3',
+                        bajaDarkBlue: '#003B6F',
+                        bajaSand: '#E6C7A8',
+                        bajaOrange: '#FF7F50',
+                        bajaGreen: '#4CAF50',
+                        bajaBg: '#F8F9FA'
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #F8F9FA;
+            color: #1E293B;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(0,86,163,0.92) 0%, rgba(0,59,111,0.95) 100%), url('https://placehold.co/1920x1080/003B6F/E6C7A8?text=Baja+California+Landscape') center/cover no-repeat;
+        }
+        .sand-gradient {
+            background: linear-gradient(135deg, #FFF5EC 0%, #FDF3E7 100%);
+        }
+        .custom-shadow {
+            box-shadow: 0 10px 30px -5px rgba(0, 86, 163, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-bajaOrange selection:text-white">
+
+    <!-- Notification Banner (Custom Message Box instead of alert) -->
+    <div id="notification-banner" class="fixed top-5 right-5 z-50 transform translate-y-[-150%] transition-transform duration-300 ease-in-out bg-white border-l-4 border-bajaOrange shadow-2xl rounded-r-xl p-4 max-w-sm flex items-center space-x-3">
+        <div id="notification-icon" class="text-2xl text-bajaOrange">
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <div>
+            <h4 id="notification-title" class="font-bold text-sm text-bajaDarkBlue">Aviso</h4>
+            <p id="notification-message" class="text-xs text-slate-600">Mensaje del sistema.</p>
+        </div>
+        <button onclick="hideNotification()" class="text-slate-400 hover:text-slate-600 ml-auto self-start">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 bg-white/95 backdrop-blur-md shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo / Name -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-12 h-12 bg-bajaDarkBlue rounded-xl flex items-center justify-center text-white font-black text-xl shadow-md group-hover:scale-105 transition-transform duration-300 relative overflow-hidden">
+                    <span class="relative z-10">BR</span>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-bajaBlue to-bajaOrange opacity-50"></div>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight text-bajaDarkBlue block leading-none">BAJA RETAIL</span>
+                    <span class="text-[10px] font-semibold tracking-wider text-bajaOrange uppercase mt-1 block">Retail Solutions for Baja</span>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex items-center space-x-8 font-medium text-sm">
+                <a href="#inicio" class="text-slate-700 hover:text-bajaBlue transition-colors">Inicio</a>
+                <a href="#soluciones" class="text-slate-700 hover:text-bajaBlue transition-colors">Soluciones</a>
+                <a href="#mision-vision" class="text-slate-700 hover:text-bajaBlue transition-colors">Misión y Visión</a>
+                <a href="#valores" class="text-slate-700 hover:text-bajaBlue transition-colors">Valores</a>
+                <a href="#calculadora" class="text-slate-700 hover:text-bajaBlue transition-colors">Cotizador</a>
+                <a href="#contacto" class="px-5 py-2.5 rounded-xl bg-bajaBlue text-white font-semibold hover:bg-bajaDarkBlue shadow-lg shadow-bajaBlue/20 transition-all transform hover:-translate-y-0.5">Cotizar Solución</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-bajaDarkBlue text-2xl focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 px-6 py-6 space-y-4 shadow-xl">
+            <a href="#inicio" class="block font-medium text-slate-700 hover:text-bajaBlue" onclick="toggleMobileMenu()">Inicio</a>
+            <a href="#soluciones" class="block font-medium text-slate-700 hover:text-bajaBlue" onclick="toggleMobileMenu()">Soluciones</a>
+            <a href="#mision-vision" class="block font-medium text-slate-700 hover:text-bajaBlue" onclick="toggleMobileMenu()">Misión y Visión</a>
+            <a href="#valores" class="block font-medium text-slate-700 hover:text-bajaBlue" onclick="toggleMobileMenu()">Valores</a>
+            <a href="#calculadora" class="block font-medium text-slate-700 hover:text-bajaBlue" onclick="toggleMobileMenu()">Cotizador</a>
+            <a href="#contacto" class="block text-center px-5 py-3 rounded-xl bg-bajaBlue text-white font-semibold hover:bg-bajaDarkBlue" onclick="toggleMobileMenu()">Cotizar Solución</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative min-h-screen flex items-center justify-center hero-gradient text-white pt-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <div class="absolute -bottom-20 -left-20 w-96 h-96 bg-bajaOrange/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-20 -right-20 w-96 h-96 bg-bajaSand/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-5xl mx-auto text-center relative z-10 py-20">
+            <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 mb-8 animate-bounce">
+                <span class="w-2.5 h-2.5 rounded-full bg-bajaOrange"></span>
+                <span class="text-xs uppercase tracking-widest font-bold text-bajaSand">Retail Solutions for Baja</span>
+            </div>
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
+                Impulsando el Comercio en la <span class="text-transparent bg-clip-text bg-gradient-to-r from-bajaSand to-bajaOrange">Península de Baja California</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-slate-200 max-w-3xl mx-auto mb-10 font-light leading-relaxed">
+                Ofrecemos soluciones integrales, productos de calidad y experiencias de compra memorables para promover la economía local y la excelencia operativa.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#calculadora" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-bajaOrange hover:bg-orange-600 text-white font-bold text-base shadow-xl shadow-bajaOrange/30 transition-all transform hover:-translate-y-1">
+                    Simular Solución <i class="fa-solid fa-calculator ml-2"></i>
+                </a>
+                <a href="#soluciones" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-md font-bold text-base transition-all">
+                    Explorar Servicios
+                </a>
+            </div>
+
+            <!-- Quick Highlights -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-16 border-t border-white/10">
+                <div class="text-center">
+                    <span class="block text-3xl font-extrabold text-bajaSand">Líderes</span>
+                    <span class="text-xs uppercase tracking-wider text-slate-300 mt-1 block">Socio Comercial</span>
+                </div>
+                <div class="text-center">
+                    <span class="block text-3xl font-extrabold text-bajaOrange">100%</span>
+                    <span class="text-xs uppercase tracking-wider text-slate-300 mt-1 block">Compromiso Regional</span>
+                </div>
+                <div class="text-center">
+                    <span class="block text-3xl font-extrabold text-bajaSand">Integral</span>
+                    <span class="text-xs uppercase tracking-wider text-slate-300 mt-1 block">Soluciones Retail</span>
+                </div>
+                <div class="text-center">
+                    <span class="block text-3xl font-extrabold text-bajaOrange">Excepcional</span>
+                    <span class="text-xs uppercase tracking-wider text-slate-300 mt-1 block">Servicio Operativo</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Soluciones / Servicios de Retail -->
+    <section id="soluciones" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="text-bajaOrange font-bold text-sm tracking-widest uppercase block mb-3">Nuestros Servicios</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-bajaDarkBlue">Soluciones Integrales para Retail</h2>
+            <p class="text-slate-600 mt-4 text-base sm:text-lg">Diseñamos y optimizamos cada eslabón de la cadena comercial para negocios en Baja.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Service 1 -->
+            <div class="bg-white rounded-3xl p-8 custom-shadow border border-slate-100 flex flex-col justify-between hover:border-bajaBlue transition-all duration-300 group">
+                <div>
+                    <div class="w-16 h-16 rounded-2xl bg-bajaBlue/10 text-bajaBlue flex items-center justify-center text-2xl mb-6 group-hover:bg-bajaBlue group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-store"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-bajaDarkBlue mb-3">Exhibición y Puntos de Venta</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                        Diseño arquitectónico de interiores, mobiliario especializado y optimización de pasillos para maximizar las conversiones y el ticket promedio.
+                    </p>
+                    <ul class="space-y-2 text-xs font-medium text-slate-700 mb-6">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-bajaGreen mr-2"></i> Layouts comerciales modernos</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-bajaGreen mr-2"></i> Mobiliario modular en acero y madera</li>
+                    </ul>
+                </div>
+                <button onclick="openSolutionModal('Exhibición y Puntos de Venta', 'Potencia el rendimiento de tu tienda física con flujos optimizados, diseño visual atractivo y herramientas que incrementan la rotación de mercancía en Baja California.')" class="w-full py-3 rounded-xl bg-slate-100 hover:bg-bajaBlue hover:text-white text-bajaDarkBlue font-semibold text-sm transition-colors">
+                    Ver Detalles
+                </button>
+            </div>
+
+            <!-- Service 2 -->
+            <div class="bg-white rounded-3xl p-8 custom-shadow border border-slate-100 flex flex-col justify-between hover:border-bajaOrange transition-all duration-300 group">
+                <div>
+                    <div class="w-16 h-16 rounded-2xl bg-bajaOrange/10 text-bajaOrange flex items-center justify-center text-2xl mb-6 group-hover:bg-bajaOrange group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-truck-ramp-box"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-bajaDarkBlue mb-3">Gestión y Suministro Logístico</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                        Cadena de suministro ágil y confiable adaptada a las distancias de la Península, asegurando inventarios óptimos y abastecimiento puntual.
+                    </p>
+                    <ul class="space-y-2 text-xs font-medium text-slate-700 mb-6">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-bajaGreen mr-2"></i> Rutas optimizadas en la península</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-bajaGreen mr-2"></i> Control de inventarios en tiempo real</li>
+                    </ul>
+                </div>
+                <button onclick="openSolutionModal('Gestión y Suministro Logístico', 'Garantizamos el flujo continuo de mercancías desde Tijuana hasta Los Cabos con tiempos de respuesta precisos y soporte logístico avanzado.')" class="w-full py-3 rounded-xl bg-slate-100 hover:bg-bajaOrange hover:text-white text-bajaDarkBlue font-semibold text-sm transition-colors">
+                    Ver Detalles
+                </button>
+            </div>
+
+            <!-- Service 3 -->
+            <div class="bg-white rounded-3xl p-8 custom-shadow border border-slate-100 flex flex-col justify-between hover:border-bajaGreen transition-all duration-300 group">
+                <div>
+                    <div class="w-16 h-16 rounded-2xl bg-bajaGreen/10 text-bajaGreen flex items-center justify-center text-2xl mb-6 group-hover:bg-bajaGreen group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-bajaDarkBlue mb-3">Tecnología para Retail</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                        Sistemas POS (Punto de Venta), software de gestión, pasarelas de pago y automatización comercial adaptadas a las necesidades del comerciante local.
+                    </p>
+                    <ul class="space-y-2 text-xs font-medium text-slate-700 mb-6">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-bajaGreen mr-2"></i> Terminales y software POS</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-bajaGreen mr-2"></i> Analítica de ventas y reportes</li>
+                    </ul>
+                </div>
+                <button onclick="openSolutionModal('Tecnología para Retail', 'Integra herramientas digitales modernas en tu negocio para controlar ventas, mermas, clientes frecuentes y facturación electrónica de forma sencilla.')" class="w-full py-3 rounded-xl bg-slate-100 hover:bg-bajaGreen hover:text-white text-bajaDarkBlue font-semibold text-sm transition-colors">
+                    Ver Detalles
+                </button>
+            </div>
+
+            <!-- Service 4 -->
+            <div class="bg-white rounded-3xl p-8 custom-shadow border border-slate-100 flex flex-col justify-between hover:border-bajaBlue transition-all duration-300 group">
+                <div>
+                    <div class="w-16 h-16 rounded-2xl bg-bajaBlue/10 text-bajaBlue flex items-center justify-center text-2xl mb-6 group-hover:bg-bajaBlue group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-handshake"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-bajaDarkBlue mb-3">Consultoría y Estrategia</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                        Asesoría experta en tendencias minoristas, análisis de rentabilidad, capacitación de personal en servicio al cliente y expansión de marca.
+                    </p>
+                    <ul class="space-y-2 text-xs font-medium text-slate-700 mb-6">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-bajaGreen mr-2"></i> Capacitación en servicio al cliente</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-bajaGreen mr-2"></i> Estrategias de precios y promociones</li>
+                    </ul>
+                </div>
+                <button onclick="openSolutionModal('Consultoría y Estrategia', 'Eleva la competitividad de tu negocio minorista con nuestra asesoría personalizada basada en datos reales del consumidor peninsular.')" class="w-full py-3 rounded-xl bg-slate-100 hover:bg-bajaBlue hover:text-white text-bajaDarkBlue font-semibold text-sm transition-colors">
+                    Ver Detalles
+                </button>
+            </div>
+
+            <!-- Service 5 -->
+            <div class="bg-white rounded-3xl p-8 custom-shadow border border-slate-100 flex flex-col justify-between hover:border-bajaOrange transition-all duration-300 group">
+                <div>
+                    <div class="w-16 h-16 rounded-2xl bg-bajaOrange/10 text-bajaOrange flex items-center justify-center text-2xl mb-6 group-hover:bg-bajaOrange group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-box-open"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-bajaDarkBlue mb-3">Abastecimiento de Productos</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                        Conexión directa con fabricantes nacionales e internacionales y promoción de marcas locales para surtir anaqueles con la más alta calidad.
+                    </p>
+                    <ul class="space-y-2 text-xs font-medium text-slate-700 mb-6">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-bajaGreen mr-2"></i> Catálogo diversificado</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-bajaGreen mr-2"></i> Impulso a productores de Baja</li>
+                    </ul>
+                </div>
+                <button onclick="openSolutionModal('Abastecimiento de Productos', 'Garantiza stock permanente con precios competitivos y productos de alta demanda para satisfacer a tus compradores locales y turistas.')" class="w-full py-3 rounded-xl bg-slate-100 hover:bg-bajaOrange hover:text-white text-bajaDarkBlue font-semibold text-sm transition-colors">
+                    Ver Detalles
+                </button>
+            </div>
+
+            <!-- Service 6 -->
+            <div class="bg-white rounded-3xl p-8 custom-shadow border border-slate-100 flex flex-col justify-between hover:border-bajaGreen transition-all duration-300 group">
+                <div>
+                    <div class="w-16 h-16 rounded-2xl bg-bajaGreen/10 text-bajaGreen flex items-center justify-center text-2xl mb-6 group-hover:bg-bajaGreen group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-bullhorn"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-bajaDarkBlue mb-3">Marketing en Punto de Venta</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                        Estrategias de comunicación visual, señalización exterior, activaciones de marca y material POP para captar la atención de los clientes.
+                    </p>
+                    <ul class="space-y-2 text-xs font-medium text-slate-700 mb-6">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-bajaGreen mr-2"></i> Letreros y rótulos institucionales</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-bajaGreen mr-2"></i> Campañas de lealtad</li>
+                    </ul>
+                </div>
+                <button onclick="openSolutionModal('Marketing en Punto de Venta', 'Haz que tu marca destaque en la península con identidad visual profesional, empaques ecológicos y campañas de atracción directa.')" class="w-full py-3 rounded-xl bg-slate-100 hover:bg-bajaGreen hover:text-white text-bajaDarkBlue font-semibold text-sm transition-colors">
+                    Ver Detalles
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Misión y Visión (Exactos según la guía de marca) -->
+    <section id="mision-vision" class="py-24 sand-gradient border-y border-slate-200/60 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-bajaOrange font-bold text-sm tracking-widest uppercase block mb-3">Identidad Corporativa</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-bajaDarkBlue">Misión y Visión Oficial</h2>
+                <p class="text-slate-600 mt-4 text-base sm:text-lg">Los pilares fundamentales que guían nuestro compromiso con la península.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Visión -->
+                <div class="bg-white p-8 sm:p-10 rounded-3xl custom-shadow border border-bajaSand/50 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-bajaBlue/5 rounded-bl-full pointer-events-none"></div>
+                    <div class="w-14 h-14 rounded-2xl bg-bajaBlue/10 text-bajaBlue flex items-center justify-center text-2xl font-bold mb-6">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-bajaBlue mb-2 block">Nuestra Visión</span>
+                    <h3 class="text-2xl font-bold text-bajaDarkBlue mb-4">Liderazgo en la Península</h3>
+                    <p class="text-slate-600 leading-relaxed text-base sm:text-lg font-medium">
+                        "Ser el socio comercial líder en la Península de Baja California, impulsando el crecimiento y desarrollo sostenible del comercio minorista a través de innovación, servicio excepcional y una profunda conexión con nuestra comunidad."
+                    </p>
+                </div>
+
+                <!-- Misión -->
+                <div class="bg-white p-8 sm:p-10 rounded-3xl custom-shadow border border-bajaSand/50 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-bajaOrange/5 rounded-bl-full pointer-events-none"></div>
+                    <div class="w-14 h-14 rounded-2xl bg-bajaOrange/10 text-bajaOrange flex items-center justify-center text-2xl font-bold mb-6">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-bajaOrange mb-2 block">Nuestra Misión</span>
+                    <h3 class="text-2xl font-bold text-bajaDarkBlue mb-4">Propósito y Compromiso</h3>
+                    <p class="text-slate-600 leading-relaxed text-base sm:text-lg font-medium">
+                        "Ofrecer soluciones integrales, productos de calidad y experiencias de compra memorables para los habitantes y visitantes de Baja, promoviendo la economía local y la excelencia operativa."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Valores Corporativos -->
+    <section id="valores" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="text-bajaOrange font-bold text-sm tracking-widest uppercase block mb-3">Nuestros Principios</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-bajaDarkBlue">Valores Corporativos</h2>
+            <p class="text-slate-600 mt-4 text-base sm:text-lg">La base de nuestra cultura y relación con cada cliente y aliado comercial.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            <!-- Valor 1 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 flex flex-col items-center text-center group hover:-translate-y-1">
+                <div class="w-12 h-12 rounded-full bg-bajaBlue/10 text-bajaBlue flex items-center justify-center text-xl mb-4 group-hover:bg-bajaBlue group-hover:text-white transition-colors">
+                    <i class="fa-solid fa-hands-holding-child"></i>
+                </div>
+                <h3 class="font-bold text-bajaDarkBlue text-lg mb-2">Pasión por el Servicio</h3>
+                <p class="text-xs text-slate-500 leading-relaxed">Vocación absoluta por superar las expectativas de nuestros clientes.</p>
+            </div>
+
+            <!-- Valor 2 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 flex flex-col items-center text-center group hover:-translate-y-1">
+                <div class="w-12 h-12 rounded-full bg-bajaOrange/10 text-bajaOrange flex items-center justify-center text-xl mb-4 group-hover:bg-bajaOrange group-hover:text-white transition-colors">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h3 class="font-bold text-bajaDarkBlue text-lg mb-2">Integridad</h3>
+                <p class="text-xs text-slate-500 leading-relaxed">Actuamos con honestidad, transparencia y rectitud profesional.</p>
+            </div>
+
+            <!-- Valor 3 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 flex flex-col items-center text-center group hover:-translate-y-1">
+                <div class="w-12 h-12 rounded-full bg-bajaGreen/10 text-bajaGreen flex items-center justify-center text-xl mb-4 group-hover:bg-bajaGreen group-hover:text-white transition-colors">
+                    <i class="fa-solid fa-lightbulb"></i>
+                </div>
+                <h3 class="font-bold text-bajaDarkBlue text-lg mb-2">Innovación</h3>
+                <p class="text-xs text-slate-500 leading-relaxed">Buscamos constantemente tecnologías para optimizar el comercio.</p>
+            </div>
+
+            <!-- Valor 4 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 flex flex-col items-center text-center group hover:-translate-y-1">
+                <div class="w-12 h-12 rounded-full bg-bajaBlue/10 text-bajaBlue flex items-center justify-center text-xl mb-4 group-hover:bg-bajaBlue group-hover:text-white transition-colors">
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <h3 class="font-bold text-bajaDarkBlue text-lg mb-2">Compromiso Local</h3>
+                <p class="text-xs text-slate-500 leading-relaxed">Impulsamos la economía regional de la península de Baja California.</p>
+            </div>
+
+            <!-- Valor 5 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 flex flex-col items-center text-center group hover:-translate-y-1 sm:col-span-2 lg:col-span-1">
+                <div class="w-12 h-12 rounded-full bg-bajaOrange/10 text-bajaOrange flex items-center justify-center text-xl mb-4 group-hover:bg-bajaOrange group-hover:text-white transition-colors">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+                <h3 class="font-bold text-bajaDarkBlue text-lg mb-2">Excelencia</h3>
+                <p class="text-xs text-slate-500 leading-relaxed">Estándares elevados de calidad operativa para resultados sobresalientes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Interactiva: Simulador / Cotizador de Soluciones para Retail -->
+    <section id="calculadora" class="py-24 bg-bajaDarkBlue text-white px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div class="absolute -right-20 -top-20 w-96 h-96 bg-bajaBlue/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="max-w-5xl mx-auto relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-bajaOrange font-bold text-sm tracking-widest uppercase block mb-3">Herramienta Interactiva</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Simulador de Soluciones Retail</h2>
+                <p class="text-slate-300 mt-4 text-base sm:text-lg">Calcula y descubre el paquete ideal según las dimensiones y necesidades de tu establecimiento en Baja.</p>
+            </div>
+
+            <div class="bg-slate-800/90 backdrop-blur-md rounded-3xl p-8 sm:p-12 border border-slate-700 shadow-2xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <!-- Step 1: Tamaño de Tienda -->
+                    <div>
+                        <label class="block text-sm font-bold text-bajaSand mb-3">1. Selecciona el tamaño de tu tienda (m²):</label>
+                        <select id="calc-size" onchange="calcularSolucion()" class="w-full px-4 py-3.5 rounded-xl bg-slate-900 border border-slate-700 text-white font-medium focus:outline-none focus:border-bajaOrange">
+                            <option value="small">Pequeña (Hasta 100 m² - Minisúper / Boutique)</option>
+                            <option value="medium" selected>Mediana (100 - 500 m² - Supermercado / Tienda departamental)</option>
+                            <option value="large">Grande (Más de 500 m² - Hipermercado / Centro de distribución)</option>
+                        </select>
+                    </div>
+
+                    <!-- Step 2: Solución Principal Requerida -->
+                    <div>
+                        <label class="block text-sm font-bold text-bajaSand mb-3">2. Servicio o necesidad principal:</label>
+                        <select id="calc-service" onchange="calcularSolucion()" class="w-full px-4 py-3.5 rounded-xl bg-slate-900 border border-slate-700 text-white font-medium focus:outline-none focus:border-bajaOrange">
+                            <option value="pos">Exhibición y Puntos de Venta (Mobiliario + Layout)</option>
+                            <option value="logistica">Gestión y Suministro Logístico Regional</option>
+                            <option value="tecnologia">Tecnología POS y Software Comercial</option>
+                            <option value="integral">Paquete Integral (Todo incluido)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Step 3: Ubicación -->
+                <div class="mb-8">
+                    <label class="block text-sm font-bold text-bajaSand mb-3">3. Municipio o zona en la Península:</label>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <label class="cursor-pointer bg-slate-900 border border-slate-700 hover:border-bajaOrange p-3 rounded-xl text-center text-xs font-semibold flex items-center justify-center space-x-2 transition-colors">
+                            <input type="radio" name="zona" value="Tijuana / Rosarito" checked onchange="calcularSolucion()">
+                            <span>Tijuana / Rosarito</span>
+                        </label>
+                        <label class="cursor-pointer bg-slate-900 border border-slate-700 hover:border-bajaOrange p-3 rounded-xl text-center text-xs font-semibold flex items-center justify-center space-x-2 transition-colors">
+                            <input type="radio" name="zona" value="Mexicali / Valle" onchange="calcularSolucion()">
+                            <span>Mexicali / Valle</span>
+                        </label>
+                        <label class="cursor-pointer bg-slate-900 border border-slate-700 hover:border-bajaOrange p-3 rounded-xl text-center text-xs font-semibold flex items-center justify-center space-x-2 transition-colors">
+                            <input type="radio" name="zona" value="Ensenada / San Quintín" onchange="calcularSolucion()">
+                            <span>Ensenada / San Quintín</span>
+                        </label>
+                        <label class="cursor-pointer bg-slate-900 border border-slate-700 hover:border-bajaOrange p-3 rounded-xl text-center text-xs font-semibold flex items-center justify-center space-x-2 transition-colors">
+                            <input type="radio" name="zona" value="Baja California Sur" onchange="calcularSolucion()">
+                            <span>Baja California Sur</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Results Display Card -->
+                <div class="bg-slate-900 rounded-2xl p-6 border border-bajaOrange/40 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div>
+                        <span class="text-xs uppercase tracking-wider text-bajaOrange font-bold block mb-1">Recomendación Sugerida</span>
+                        <h4 id="result-title" class="text-xl font-extrabold text-white mb-2">Paquete Mediano de Optimización Retail</h4>
+                        <p id="result-desc" class="text-xs sm:text-sm text-slate-300 leading-relaxed">Incluye diseño de layout comercial, estantería modular especializada y consultoría operativa en punto de venta.</p>
+                    </div>
+                    <a href="#contacto" class="w-full md:w-auto px-6 py-3.5 rounded-xl bg-bajaOrange hover:bg-orange-600 text-white font-bold text-sm text-center shrink-0 shadow-lg shadow-bajaOrange/20 transition-all">
+                        Solicitar Cotización Oficial <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Contacto Oficial -->
+    <section id="contacto" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <span class="text-bajaOrange font-bold text-sm tracking-widest uppercase block mb-3">Atención Directa</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-bajaDarkBlue mb-6">Iniciemos el Siguiente Proyecto Juntos</h2>
+                <p class="text-slate-600 text-base leading-relaxed mb-8">
+                    ¿Estás listo para transformar tu comercio minorista en la Península de Baja California? Nuestro equipo de expertos está preparado para ofrecerte la solución ideal desde nuestras oficinas en Ensenada.
+                </p>
+
+                <div class="space-y-6">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-bajaBlue/10 text-bajaBlue flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-bajaDarkBlue text-base">Oficinas Centrales</h4>
+                            <p class="text-slate-600 text-sm">Ensenada, Baja California, México.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-bajaOrange/10 text-bajaOrange flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-bajaDarkBlue text-base">Correo Electrónico</h4>
+                            <p class="text-slate-600 text-sm">contacto@bajaretail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-bajaGreen/10 text-bajaGreen flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-bajaDarkBlue text-base">Teléfono / Celular Directo</h4>
+                            <p class="text-slate-600 text-sm">646 455 6962</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="bg-white p-8 sm:p-10 rounded-3xl custom-shadow border border-slate-100">
+                <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-6">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-bajaDarkBlue mb-2">Nombre Completo</label>
+                        <input type="text" id="nombre" required placeholder="Ej. Carlos Mendoza" class="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-bajaBlue text-sm transition-colors">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-bajaDarkBlue mb-2">Correo Electrónico</label>
+                            <input type="email" id="email" required placeholder="correo@negocio.com" class="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-bajaBlue text-sm transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-bajaDarkBlue mb-2">Teléfono de Contacto</label>
+                            <input type="tel" id="telefono" required placeholder="646 455 6962" class="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-bajaBlue text-sm transition-colors">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-bajaDarkBlue mb-2">Ubicación / Sucursal</label>
+                            <select id="sucursal" class="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-bajaBlue text-sm transition-colors">
+                                <option value="ensenada">Ensenada (Oficinas Centrales)</option>
+                                <option value="tijuana">Tijuana y Zona Metropolitana</option>
+                                <option value="mexicali">Mexicali y Valle</option>
+                                <option value="bcs">Baja California Sur</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-bajaDarkBlue mb-2">Solución Requerida</label>
+                            <select id="servicio-interes" class="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-bajaBlue text-sm transition-colors">
+                                <option value="exhibicion">Exhibición y Puntos de Venta</option>
+                                <option value="logistica">Gestión y Suministro Logístico</option>
+                                <option value="tecnologia">Tecnología para Retail</option>
+                                <option value="consultoria">Consultoría y Estrategia</option>
+                                <option value="integral">Paquete Integral</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-bajaDarkBlue mb-2">Mensaje o Detalles del Proyecto</label>
+                        <textarea id="mensaje" rows="4" required placeholder="Cuéntanos sobre tu establecimiento comercial..." class="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-bajaBlue text-sm transition-colors resize-none"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 rounded-xl bg-bajaBlue hover:bg-bajaDarkBlue text-white font-bold text-sm shadow-xl shadow-bajaBlue/20 transition-all transform hover:-translate-y-0.5">
+                        Enviar Solicitud <i class="fa-solid fa-paper-plane ml-2"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Detail Modal -->
+    <div id="solution-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl relative">
+            <button onclick="closeSolutionModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600 text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="w-14 h-14 rounded-2xl bg-bajaBlue/10 text-bajaBlue flex items-center justify-center text-2xl mb-6">
+                <i class="fa-solid fa-circle-info"></i>
+            </div>
+            <h3 id="modal-title" class="text-2xl font-bold text-bajaDarkBlue mb-3">Detalle de Solución</h3>
+            <p id="modal-desc" class="text-slate-600 text-sm leading-relaxed mb-8">Información detallada sobre el servicio.</p>
+            <button onclick="closeSolutionModal()" class="w-full py-3 rounded-xl bg-bajaBlue text-white font-semibold text-sm hover:bg-bajaDarkBlue transition-colors">
+                Entendido
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-bajaDarkBlue text-white py-16 px-4 sm:px-6 lg:px-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+            <div class="md:col-span-2">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-10 h-10 bg-bajaOrange rounded-xl flex items-center justify-center text-white font-black text-lg">
+                        BR
+                    </div>
+                    <span class="text-xl font-extrabold tracking-tight text-white">BAJA RETAIL</span>
+                </div>
+                <p class="text-slate-400 text-sm max-w-sm mb-6 leading-relaxed">
+                    Retail Solutions for Baja. Socios estratégicos en el desarrollo, suministro y optimización del comercio minorista en toda la península de Baja California.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/10 hover:bg-bajaOrange flex items-center justify-center text-white transition-colors"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/10 hover:bg-bajaOrange flex items-center justify-center text-white transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/10 hover:bg-bajaOrange flex items-center justify-center text-white transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-sm uppercase tracking-wider text-bajaSand mb-4">Navegación</h4>
+                <ul class="space-y-3 text-sm text-slate-400">
+                    <li><a href="#inicio" class="hover:text-white transition-colors">Inicio</a></li>
+                    <li><a href="#soluciones" class="hover:text-white transition-colors">Soluciones</a></li>
+                    <li><a href="#mision-vision" class="hover:text-white transition-colors">Misión y Visión</a></li>
+                    <li><a href="#valores" class="hover:text-white transition-colors">Valores</a></li>
+                    <li><a href="#calculadora" class="hover:text-white transition-colors">Cotizador</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-sm uppercase tracking-wider text-bajaSand mb-4">Legal</h4>
+                <ul class="space-y-3 text-sm text-slate-400">
+                    <li><a href="#" class="hover:text-white transition-colors">Aviso de Privacidad</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Términos de Servicio</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Guía de Marca</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400">
+            <p>&copy; 2026 Baja Retail. Todos los derechos reservados.</p>
+            <p class="mt-4 sm:mt-0 font-medium text-bajaSand">Retail Solutions for Baja California</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+
+        // Notification Banner Function (Replaces alert)
+        function showNotification(title, message, type = 'success') {
+            const banner = document.getElementById('notification-banner');
+            const titleEl = document.getElementById('notification-title');
+            const msgEl = document.getElementById('notification-message');
+            const iconEl = document.getElementById('notification-icon');
+
+            titleEl.textContent = title;
+            msgEl.textContent = message;
+
+            if (type === 'success') {
+                iconEl.innerHTML = '<i class="fa-solid fa-circle-check text-bajaGreen"></i>';
+            } else {
+                iconEl.innerHTML = '<i class="fa-solid fa-circle-exclamation text-bajaOrange"></i>';
+            }
+
+            banner.classList.remove('translate-y-[-150%]');
+            banner.classList.add('translate-y-0');
+
+            setTimeout(() => {
+                hideNotification();
+            }, 5000);
+        }
+
+        function hideNotification() {
+            const banner = document.getElementById('notification-banner');
+            banner.classList.remove('translate-y-0');
+            banner.classList.add('translate-y-[-150%]');
+        }
+
+        // Solution Modal Functions
+        function openSolutionModal(title, desc) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-desc').textContent = desc;
+            const modal = document.getElementById('solution-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeSolutionModal() {
+            const modal = document.getElementById('solution-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+
+        // Retail Solution Calculator Logic
+        function calcularSolucion() {
+            const size = document.getElementById('calc-size').value;
+            const service = document.getElementById('calc-service').value;
+            const zonaSelected = document.querySelector('input[name="zona"]:checked').value;
+
+            const titleEl = document.getElementById('result-title');
+            const descEl = document.getElementById('result-desc');
+
+            let title = "";
+            let desc = "";
+
+            if (service === 'pos') {
+                title = `Kit Exhibición Comercial para ${size === 'small' ? 'Minisúper' : size === 'medium' ? 'Supermercado' : 'Hipermercado'} (${zonaSelected})`;
+                desc = `Incluye estantería modular perimetral, góndolas centrales de alta resistencia, señalización visual y optimización de tráfico para ${size === 'small' ? 'hasta 100 m²' : size === 'medium' ? '100 a 500 m²' : 'más de 500 m²'}.`;
+            } else if (service === 'logistica') {
+                title = `Plan Logístico Regional Peninsular (${zonaSelected})`;
+                desc = `Rutas de abastecimiento programadas, control de stock y entrega directa en ${zonaSelected}, garantizando cero quiebres de inventario.`;
+            } else if (service === 'tecnologia') {
+                title = `Sistema Tecnológico POS & Analytics (${zonaSelected})`;
+                desc = `Terminales de punto de venta táctiles, software en la nube para control de mermas y escáneres de alta velocidad adaptados para comercios en ${zonaSelected}.`;
+            } else {
+                title = `Paquete Integral 'Baja Retail 360' (${zonaSelected})`;
+                desc = `Solución llave en mano que incluye diseño de punto de venta, suministro logístico continuo, software POS y capacitación para el personal en ${zonaSelected}.`;
+            }
+
+            titleEl.textContent = title;
+            descEl.textContent = desc;
+        }
+
+        // Contact Form Handler
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const nombre = document.getElementById('nombre').value;
+            
+            showNotification('¡Solicitud Recibida con Éxito!', `Gracias ${nombre}. Hemos registrado tu requerimiento desde Ensenada. Un asesor corporativo de Baja Retail se pondrá en contacto contigo a través del correo contacto@bajaretail.com o al teléfono 646 455 6962 en breve.`);
+            document.getElementById('contact-form').reset();
+        }
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body>
+</html>
+```
+eof
+
+I have successfully created the complete corporate website for **Baja Retail** with all requested sections, official brand colors, exact Misión, Visión, and Valores texts, and an interactive Solution Calculator. Let me know if you would like any further adjustments!
